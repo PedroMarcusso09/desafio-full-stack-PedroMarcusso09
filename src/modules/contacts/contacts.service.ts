@@ -1,43 +1,55 @@
 import { Injectable } from "@nestjs/common";
 import { CreateContactDTO } from "./dtos/create-contact.dto";
-import { Contact } from "./entities/contacts.entity";
 import { UpdateContactDto } from "./dtos/update-contact.dto";
+import { PrismaService } from "src/database/prisma.service";
+import { Contact } from "./entities/contacts.entity";
+import { randomUUID } from "crypto";
+
 
 @Injectable()
 export class ContactsService {
-    private database: Contact[]=[]
-    async create(createContactDTO: CreateContactDTO) {
-        const contact = new Contact()
-        Object.assign(contact, {
-            ...createContactDTO
+  constructor(private prisma: PrismaService) {}
+
+  async create(createContactDTO: CreateContactDTO): Promise<Contact> {
+    const { fullName, email, telephone, clientId } = createContactDTO;
+
+    const newContact = await this.prisma.contact.create({
+      data: {
+        id: randomUUID(),
+        fullName,
+        email,
+        telephone,
+        clientId,
+      },
+    });
+
+    return newContact;
+  }
+
+  async findOne(id: string) {
+        const contact = await this.prisma.contact.findFirst({
+          where: { id }
         });
-
-        this.database.push(contact)
-        return contact;
-
-    }
-
-    async findOne(id: string) {
-        const contact = this.database.find(contact => contact.id === id)
         return contact;
     }
 
-    findAll() {
-        return this.database;
+  async findAll() {
+      const contacts = await this.prisma.contact.findMany()
+        return contacts;
     }
 
-    update(id: string, updateContactDto: UpdateContactDto) {
-        const conatctIndex = this.database.findIndex((contact) => contact.id === id);
-        this.database[conatctIndex] = {
-          ...this.database[conatctIndex], 
-          ...updateContactDto,
-        };
+  async update(id: string, updateContactDto: UpdateContactDto) {
+        const updatedContact = await this.prisma.contact.update({
+          where: { id },
+          data: updateContactDto
+        })
     
-        return this.database[conatctIndex]
+        return updatedContact
       }
     
-      remove(id: string) {
-        const conatctIndex = this.database.findIndex((contact) => contact.id === id);
-        return this.database.splice(conatctIndex, 1);
-      }
+  async remove(id: string) {
+      await this.prisma.contact.delete({
+        where: { id }
+      });
+    }
 }

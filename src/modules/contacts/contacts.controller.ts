@@ -1,17 +1,19 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Request } from "@nestjs/common";
 import { CreateContactDTO } from "./dtos/create-contact.dto";
 import { ContactsService } from "./contacts.service";
 import { UpdateContactDto } from "./dtos/update-contact.dto";
 
+
 @Controller("contacts")
 export class ContactsController {
     constructor(private contactsService: ContactsService) {}
+
     @Post("")
     create(@Body() createContactDTO: CreateContactDTO){
         return this.contactsService.create(createContactDTO);
     }
 
-    @Get()
+    @Get("")
     findall() {
         return this.contactsService.findAll();
     }
@@ -20,7 +22,6 @@ export class ContactsController {
     findOne(@Param("id") id: string) {
         return this.contactsService.findOne(id);
     }
-
 
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {

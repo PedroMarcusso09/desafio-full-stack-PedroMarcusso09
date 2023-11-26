@@ -2,13 +2,14 @@ import { randomUUID } from "node:crypto"
 
 export class Contact {
     readonly id: string;
-    name: string;
+    fullName: string;
     email: string;
-    phone: string;
-    register_date: string;
-    client_id?: string;
+    telephone: string;
+    register_date?: string;
+    clientId: string;
 
     constructor() {
         this.id = randomUUID();
+        this.register_date = new Date().toISOString();  
     }
 }

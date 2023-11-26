@@ -1,7 +1,16 @@
+import { IsOptional, IsString } from "class-validator";
+
 export class CreateContactDTO {
-    name: string;
+    @IsString()
+    fullName: string;
+
+    @IsString()
     email: string;
-    phone: string;
-    register_date: string;
-    client_id?: string;
+    
+    @IsString()
+    telephone: string;
+    
+    @IsString()
+    clientId: string;
+  contactId: any;
 }
