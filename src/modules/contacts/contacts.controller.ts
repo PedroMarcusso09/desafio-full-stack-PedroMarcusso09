@@ -1,37 +1,38 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Request } from "@nestjs/common";
-import { CreateContactDTO } from "./dtos/create-contact.dto";
-import { ContactsService } from "./contacts.service";
-import { UpdateContactDto } from "./dtos/update-contact.dto";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Request,
+  UploadedFiles,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { CreateContactDTO } from './dtos/create-contact.dto';
+import { ContactsService } from './contacts.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-
-@Controller("contacts")
+@ApiTags("contacts")
+@Controller('contacts')
 export class ContactsController {
-    constructor(private contactsService: ContactsService) {}
+  constructor(private contactsService: ContactsService) {}
+  @Post('')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  create(@Body() createContactDTO: CreateContactDTO) {
+    return this.contactsService.create(createContactDTO);
+  }
 
-    @Post("")
-    create(@Body() createContactDTO: CreateContactDTO){
-        return this.contactsService.create(createContactDTO);
-    }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.contactsService.findOne(id);
+  }
 
-    @Get("")
-    findall() {
-        return this.contactsService.findAll();
-    }
-
-    @Get(":id")
-    findOne(@Param("id") id: string) {
-        return this.contactsService.findOne(id);
-    }
-
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
-      return this.contactsService.update(id, updateContactDto);
-    }
-  
-    @HttpCode(204)
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-      return this.contactsService.remove(id);
-    }
-
+ @Get('')
+  findAll() {
+    return this.contactsService.findAll();
+  } 
 }
