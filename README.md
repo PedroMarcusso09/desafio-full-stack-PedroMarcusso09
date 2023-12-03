@@ -1,1 +1,6 @@
-# desafio-full-stack-PedroMarcusso09
+# Desafio Full-Stack Kenzie
+
+##
+
+- Node.js
+Ger
