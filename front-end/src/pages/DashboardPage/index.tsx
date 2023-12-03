@@ -6,7 +6,7 @@ import EditContactForm from "../../components/EditContactForm"
 import Button from "../../components/Button";
 import { MainContainer, Header, ContactsList, ContactItem, ContactInfo } from './styles';
 import { IContact } from "../../providers/ContactsContext/@types";
-
+import { clientsPDF } from "../../Reports/Clients/clients";
 
 export const DashboardPage = () => {
     const { client, clientLogout } = useContext(ClientContext);
@@ -34,6 +34,7 @@ export const DashboardPage = () => {
             </Header>
 
             <CreateContactsForm />
+            <Button onClick={() => clientsPDF(client, contactsList)}>Gerar PDF</Button>
 
             {isEditing && <EditContactForm contact={currentContact} onSave={saveEdit} onCancel={() => setIsEditing(false)} />}
 
