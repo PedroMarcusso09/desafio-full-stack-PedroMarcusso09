@@ -13,14 +13,12 @@ export class AuthService {
   async login(email: string, password: string) {
     const client = await this.clientService.findByEmail(email);
     
-    // Verifica se o e-mail existe
     if (!client) {
       throw new UnauthorizedException('Cadastro não existe.');
     }
 
     const passwordMatch = await compare(password, client.password);
 
-    // Verifica se a senha está correta
     if (!passwordMatch) {
       throw new UnauthorizedException('Email ou senha está(ão) errado(s).');
     }
@@ -31,7 +29,6 @@ export class AuthService {
         id: client.id,
         fullName: client.fullName,
         email: client.email,
-        // Inclua outras informações necessárias, mas exclua a senha
       }
     };
   }

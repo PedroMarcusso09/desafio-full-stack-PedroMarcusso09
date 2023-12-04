@@ -7,7 +7,7 @@ import { CreateClientDto } from './dtos/create-client.dto';
 import { UpdateClientDto } from './dtos/update-client.dto';
 import { Client } from './entities/client.entity';
 import { plainToInstance } from 'class-transformer';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../../database/prisma.service';
 
 @Injectable()
 export class ClientsService {
@@ -39,7 +39,6 @@ export class ClientsService {
     const client = await this.prisma.client.findUnique({
       where: { id },
     });
-    console.log(client);
     if (!client) {
       throw new NotFoundException('Client not found');
     }

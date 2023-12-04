@@ -38,7 +38,6 @@ export const ClientProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const clientRegister = async (formData: IClientRegisterData) => {
         try {
             await api.post("/clients", formData);
-            console.log("Cadastro efetuado com sucesso!");
             navigate("/");
         } catch (error) {
             console.error("Erro no cadastro:", error);

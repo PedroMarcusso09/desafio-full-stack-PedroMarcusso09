@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react"
 import { api } from "../../services/api";
-import { Contact, ContactsContextType, CreateContactFormData, UpdateContactFormData } from "./@types"; // Importe a interface Contact
+import { Contact, ContactsContextType, CreateContactFormData, UpdateContactFormData } from "./@types";
 
 
 export const ContactsContext = createContext<ContactsContextType>({} as ContactsContextType);

@@ -29,14 +29,14 @@ export const DashboardPage = () => {
     return (
         <MainContainer>
             <Header>
+            <Button onClick={() => clientLogout()}>Sair</Button>
                 <h1>{client?.fullName}</h1>
-                <Button onClick={() => clientLogout()}>Sair</Button>
             </Header>
 
             <CreateContactsForm />
-            <Button onClick={() => clientsPDF(client, contactsList)}>Gerar PDF</Button>
+            <Button onClick={() => clientsPDF(client!, contactsList)}>Gerar PDF</Button>
 
-            {isEditing && <EditContactForm contact={currentContact} onSave={saveEdit} onCancel={() => setIsEditing(false)} />}
+            {isEditing && <EditContactForm contact ={currentContact} onSave={saveEdit} onCancel={() => setIsEditing(false)} />}
 
             <ContactsList>
                 {contactsList && contactsList.map((contact) => (

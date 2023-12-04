@@ -1,20 +1,9 @@
 import { useState } from 'react';
-import { ModalOverlay, ModalContainer } from './styles'; // Ajuste o caminho conforme necessário
+import { ModalOverlay, ModalContainer } from './styles';
 import Button from '../Button';
 import { StyledInput } from "../../components/Input/styles";
 import { Content } from '../../pages/HomePage/styles';
-
-interface Contact {
-    fullName: string;
-    email: string;
-    telephone: string;
-}
-
-interface EditContactFormProps {
-    contact: Contact;
-    onSave: (contact: Contact) => void;
-    onCancel: () => void;
-}
+import { Contact, EditContactFormProps } from '../../providers/ContactsContext/@types';
 
 const EditContactForm: React.FC<EditContactFormProps> = ({ contact, onSave, onCancel }) => {
    const [formData, setFormData] = useState<Contact>({ ...contact });

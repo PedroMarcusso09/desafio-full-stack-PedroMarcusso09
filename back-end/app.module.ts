@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ContactsModule } from '../back-end/database/modules/contacts/contacts.module';
-import { ClientsModule } from '../back-end/database/modules/clients/clients.module';
-import { AuthModule } from '../back-end/database/modules/auth/auth.module';
-
+import { ContactsModule } from './src/modules/contacts/contacts.module';
+import { ClientsModule } from './src/modules/clients/clients.module';
+import { AuthModule } from './src/modules/auth/auth.module';
 
 @Module({
   imports: [ContactsModule, ClientsModule, AuthModule],

@@ -14,9 +14,8 @@ export const CreateContactsForm = () => {
    const { createContacts } = useContext(ContactsContext);
 
    const submit = (formData: CreateContactFormData) => {
-      // Verificar se client não é null
       if (client) {
-          const data = { ...formData, clientId: client.id }; // Substituí 'clientId' por 'id', ajuste conforme sua estrutura de IClient
+          const data = { ...formData, clientId: client.id };
           createContacts(data);
       } else {
           console.error("Client is null");

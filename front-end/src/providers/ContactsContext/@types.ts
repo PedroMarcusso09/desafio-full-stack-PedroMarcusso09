@@ -20,11 +20,18 @@ export interface CreateContactFormData {
     telephone: string;
   }
   
+  export interface EditContactFormProps {
+    contact: Contact;
+    onSave: (contact: Contact) => void;
+    onCancel: () => void;
+}
+
+
 export interface UpdateContactFormData {
     fullName?: string;
     email?: string;
     telephone?: string;
-  }
+}
 
 export interface IContact {
     id: string;

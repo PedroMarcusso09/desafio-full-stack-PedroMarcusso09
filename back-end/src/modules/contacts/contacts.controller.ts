@@ -13,7 +13,7 @@ import {
   import { ContactsService } from './contacts.service';
   import { JwtAuthGuard } from '../auth/jwt-auth.guard';
   import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-  import { UpdateContactDto } from './dtos/update-contact.dto';
+  import { UpdateContactDto } from './dtos/update-contact.dtos';
   
   @ApiTags("contacts")
   @Controller('contacts')
@@ -33,14 +33,12 @@ import {
       return this.contactsService.findAll();
     } 
   
-    @Get(':clientId/contacts') // Defina a rota para incluir o clientId
+    @Get(':clientId/contacts') 
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
-    findContactsByClientId(@Param('clientId') clientId: string) { // Receba o clientId como parâmetro
-      return this.contactsService.findContactsByClientId(clientId); // Chame um método no serviço para buscar os contatos
+    findContactsByClientId(@Param('clientId') clientId: string) {
+      return this.contactsService.findContactsByClientId(clientId);
     }
-    
-    
     
     @Patch(':id')
     @ApiBearerAuth()

@@ -2,16 +2,16 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.main`
   display: flex;
-  flex-direction: column; // Para alinhar Header e ContactList em coluna
-  align-items: center; // Centraliza horizontalmente
-  gap: 20px; // Espaço entre Header e ContactList
+  flex-direction: column; 
+  align-items: center; 
+  gap: 20px;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0px 0px 5px #ccc;
   border-radius: 5px;
-  width: 90%; // Ajuste a largura conforme necessário
-  max-width: 800px; // Limita a largura máxima
-  margin: 0 auto; // Centraliza o container
+  width: 90%; 
+  max-width: 800px; 
+  margin: 0 auto; 
 `;
 
 export const Header = styled.header`
@@ -26,7 +26,7 @@ export const ContactsList = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px; // Espaço entre cada item
+  gap: 10px; 
 `;
 
 export const ContactItem = styled.li`
@@ -42,7 +42,7 @@ export const ContactInfo = styled.div`
   & > h3 {
     margin: 0 0 5px 0;
     color: #333;
-    font-size: 1.2em; // Aumenta um pouco o tamanho da fonte
+    font-size: 1.2em; 
   }
 
   & > p {

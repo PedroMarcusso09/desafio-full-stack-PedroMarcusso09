@@ -46,10 +46,10 @@ export class ClientsController {
     return this.clientsService.update(id, UpdateClientDto);
   }
 
-  @HttpCode(204)
   @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
+  @HttpCode(204)
   remove(@Param('id') id: string) {
     return this.clientsService.remove(id);
   }

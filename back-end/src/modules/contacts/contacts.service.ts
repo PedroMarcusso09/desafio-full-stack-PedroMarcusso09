@@ -1,18 +1,17 @@
 import { unlink } from 'node:fs';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../../database/prisma.service';
 import { v2 as cloudinary } from 'cloudinary';
 import { CreateContactDTO } from './dtos/create-contact.dto';
 import { Contact } from './entities/contacts.entity';
-import { UpdateContactDto } from './dtos/update-contact.dto';
+import { UpdateContactDto } from './dtos/update-contact.dtos';
 import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class ContactsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(createContactDto: CreateContactDTO) {
-    console.log('Dados recebidos:', createContactDto);
 
     const contact = new Contact();
     Object.assign(contact, createContactDto);
@@ -31,18 +30,13 @@ export class ContactsService {
   }
 
   async findContactsByClientId(clientId: string) {
-    console.log(`Buscando contatos do cliente com ID: ${clientId}`);
-    
-    // Use o clientId para filtrar os contatos
+
     const contacts = await this.prisma.contact.findMany({
-      where: { clientId }, // Filtrar contatos pelo clientId
+      where: { clientId },
     });
-    
-    console.log(`Contatos encontrados: ${contacts}`);
-    
     return contacts;
   }
-  
+
 
   async findAll() {
     const contacts = await this.prisma.contact.findMany();
