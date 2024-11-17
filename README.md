@@ -18,7 +18,7 @@ Antes de começar, certifique-se de que você tem as seguintes ferramentas insta
 2. Abra o terminal do VSCode e navegue até a pasta back-end.
 3. Execute `npm install` para instalar as dependências.
 4. Configure o arquivo `.env` de acordo com o arquivo de exemplo `.env.example`.
-5. Execute as migrações do banco de dados digitando `npm prisma prisma migrate dev` no terminal.
+5. Execute as migrações do banco de dados digitando `npx prisma migrate dev` no terminal.
 6. Inicie o servidor com `npm run start: dev`.
 
 # Documentação da API

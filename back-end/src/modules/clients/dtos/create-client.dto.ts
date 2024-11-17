@@ -1,7 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { hashSync } from 'bcryptjs';
-import { Transform } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString, MinLength} from 'class-validator';
+import {ApiProperty} from "@nestjs/swagger"
+import {hashSync} from "bcryptjs"
+import {Transform} from "class-transformer"
+import {IsEmail, IsNotEmpty, IsString, MinLength} from "class-validator"
 
 export class CreateClientDto {
   @ApiProperty({
@@ -11,23 +11,23 @@ export class CreateClientDto {
   })
   @IsString()
   @IsNotEmpty()
-  fullName: string;
+  fullName: string
 
   @ApiProperty()
   @IsString()
   @IsEmail()
-  email: string;
+  email: string
 
   @ApiProperty()
   @IsString()
-  telephone: string;
+  telephone: string
 
   @ApiProperty()
   @IsString()
   @MinLength(8)
   @IsNotEmpty()
   @Transform(({value}: {value: string}) => hashSync(value, 10), {
-    groups: ["transform"],
+    groups: ["transform"]
   })
-  password: string;
+  password: string
 }

@@ -14,4 +14,4 @@ export const StyledInput = styled.input`
 export const ErrorMessage = styled.p`
   color: red;
   margin: 1px 0 5px 12px;
-`
+`;

@@ -1,54 +1,41 @@
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-import { IClient } from "../../providers/ClientContext/@types";
-import { IContact } from "../../providers/ContactsContext/@types";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { IClient } from '../../providers/ClientContext/@types';
+import { IContact } from '../../providers/ContactsContext/@types';
 
-export function clientsPDF(client: IClient, contacts: IContact[]) {
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+export function generateClientPDF(client: IClient, contacts: IContact[]) {
+  const doc = new jsPDF();
 
-    const reportTitle = {
-        text: "Contatos de " + client.fullName,
-        fontSize: 15,
-        bold: true,
-        margin: [15, 20, 0, 45]
-    };
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`Contatos de ${client.fullName}`, 105, 20, { align: 'center' });
 
-    const data = contacts.map((contact) => {
-        return [
-            { text: contact.fullName, fontSize: 9, margin: [0, 2, 0, 2] },
-            { text: contact.email, fontSize: 9, margin: [0, 2, 0, 2] },
-            { text: contact.telephone, fontSize: 9, margin: [0, 2, 0, 2] },
-        ];
-    });
+  const tableBody = contacts.map(contact => [
+    contact.fullName,
+    contact.email,
+    contact.telephone,
+  ]);
 
-    const details = {
-        table: {
-            headerRows: 1,
-            widths: ["*", "*", "*"],
-            body: [
-                [{ text: "Nome", fontSize: 10 }, { text: "E-mail", fontSize: 10 }, { text: "Telefone", fontSize: 10 }],
-                ...data
-            ]
-        },
-        layout: "headerLineOnly"
-    };
+  (doc as any).autoTable({
+    head: [['Nome', 'E-mail', 'Telefone']],
+    body: tableBody,
+    startY: 30,
+    styles: {
+      fontSize: 10,
+      cellPadding: 2,
+    },
+    headStyles: {
+      fillColor: [22, 160, 133],
+      textColor: [255, 255, 255],
+    },
+  });
 
-    const footer = (currentPage: number, pageCount: number): any => {
-        return {
-            text: currentPage.toString() + " / " + pageCount.toString(),
-            alignment: "right",
-            fontSize: 9,
-            margin: [0, 10, 20, 0]
-        };
-    };
-    
-    const docDefinitions = {
-        pageSize: "A4",
-        pageMargins: [15, 50, 15, 40],
-        header: reportTitle,
-        content: details,
-        footer: footer
-    };
-    
-    pdfMake.createPdf(docDefinitions).download();
+  const pageCount = (doc as any).internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFontSize(10);
+    doc.text(`Página ${i} de ${pageCount}`, 200, 290, { align: 'right' });
+  }
+
+  doc.save(`Relatorio-${client.fullName}.pdf`);
 }

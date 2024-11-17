@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
- width: calc(100% - 20px);
- padding: 16px 20px;
- margin-bottom: 10px;
+  width: calc(100% - 20px);
+  padding: 16px 20px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -21,7 +21,8 @@ export const StyledButton = styled.button`
     cursor: not-allowed;
   }
 
-  &, a {
+  &,
+  a {
     text-decoration: none;
     display: inline-block;
     text-align: center;
